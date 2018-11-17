@@ -1,0 +1,10 @@
+- host: web
+  become: yes # このPlaybookをsudoして実行するように支持
+  vars:
+    your_impression: awesome # テンプレート内で使用する変数を定義
+  tasks:
+    - name: install package # パッケージのインストール
+      yum:
+        name: httpd
+	state: latest
+
