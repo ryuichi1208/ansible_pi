@@ -1,0 +1,33 @@
+---
+
+- name: disable SELinux
+  selinux: state=disabled
+
+- name: yum update
+  yum: name=* state=latest
+
+- name: Add Repository
+  yum:
+    name: "{{ repo_list }}"
+    state: present
+
+- name: Install epel-release
+  yum:
+    name: epel-release
+    state: present
+
+- name: Package installation
+  yum:
+    name: "{{ packages }}"
+
+- name: Perl Modulues installation
+  yum:
+    name: "{{ perl_mod_list }}"
+
+- name: Clone Repository
+  git:
+    repo: "{{ item.url }}"
+    dest: /root/{{ item.name }}
+    remote: upstream
+    accept_hostkey: yes
+  with_items: "{{ git_repos }}"

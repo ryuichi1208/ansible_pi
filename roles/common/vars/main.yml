@@ -1,0 +1,60 @@
+repo_list:
+  - "https://centos7.iuscommunity.org/ius-release.rpm"
+
+packages:
+  - git
+  - vim
+  - curl
+  - fontconfig
+  - gcc
+  - zlib-devel
+  - libffi-devel
+  - bzip2-devel
+  - openssl-devel
+  - ncurses-devel
+  - sqlite-devel
+  - readline-devel
+  - device-mapper
+  - device-mapper-persistent-data
+  - device-mapper-event
+  - device-mapper-libs
+  - device-mapper-event-libs
+  - tk-devel
+  - gdbm-devel
+  - libuuid-devel
+  - xz-devel
+  - python36u
+  - python36u-libs
+  - python36u-devel
+  - python36u-pip
+  - jq
+
+perl_mod_list:
+  - perl-App-cpanminus
+  - perl-IPC-Run
+  - perl-DBD-ODBC
+  - perl-Archive-Tar
+  - perl-XML-LibXML
+  - perl-Test-Simple
+  - perl-XMLRPC-Lite
+  - perl-LDAP
+  - perl-GD
+  - perl-CGI-Emulate-PSGI
+  - ImageMagick-perl
+  - perl-Authen-SASL
+  - perl-CGI
+  - perl-Mozilla-CA
+  - perl-YAML-Syck
+  - perl-IO-String
+  - perl-DB_File
+  - perl-Crypt-DSA
+  - perl-Cache-Memcached
+  - perl-Heap
+  - perl-File-NFSLock
+  - perl-Crypt-SSLeay
+  - perl-Text-CSV_XS
+  - expat-devel
+
+git_repos:
+  - { name: dotfiles, url: "https://github.com/ryuichi1208/dotfiles.git"}
+  - { name: c-websrv, url: "https://github.com/ryuichi1208/c-websrv.git" }
