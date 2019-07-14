@@ -1,0 +1,21 @@
+- name: add docker repo
+  shell: "yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo"
+  args:
+    chdir: "/etc/yum.repos.d"
+    creates: docker-ce.repo
+
+- name: install docker-ce
+  yum:
+    name: docker-ce
+    state: present
+
+- name: Ensure docker deamon is running
+  service:
+    name: docker
+    state: started
+
+- name: Ensure docker-compose is installed and available
+  get_url:
+    url : https://github.com/docker/compose/releases/download/1.24.1/docker-compose-{{ ansible_system }}-{{ ansible_userspace_architecture }}
+    dest: /usr/local/bin/docker-compose
+    mode: 'u+x,g+x'

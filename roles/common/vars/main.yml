@@ -1,3 +1,6 @@
+repo_dir:
+  - "/root/repository"
+
 repo_list:
   - "https://centos7.iuscommunity.org/ius-release.rpm"
 
@@ -23,11 +26,14 @@ packages:
   - gdbm-devel
   - libuuid-devel
   - xz-devel
+  - python-pip
   - python36u
   - python36u-libs
   - python36u-devel
   - python36u-pip
   - jq
+  - nodejs
+  - npm
 
 perl_mod_list:
   - perl-App-cpanminus
@@ -58,3 +64,9 @@ perl_mod_list:
 git_repos:
   - { name: dotfiles, url: "https://github.com/ryuichi1208/dotfiles.git"}
   - { name: c-websrv, url: "https://github.com/ryuichi1208/c-websrv.git" }
+  - { name: vim, url: "https://github.com/vim/vim.git" }
+
+pip_package_list:
+  - { name: "netmiko", version: "2.2.2" }
+  - { name: "ncclient", version: "0.6.0" }
+  - { name: "requests" }

@@ -1,9 +1,16 @@
 ---
 
-- name: disable SELinux
-  selinux: state=disabled
+- name: Disable SELinux
+  selinux:
+    state: disabled
 
-- name: yum update
+- name: Disable firewalld
+  systemd:
+    name: firewalld
+    state: stopped
+    enabled: false
+
+- name: Yum Update
   yum: name=* state=latest
 
 - name: Add Repository
@@ -24,10 +31,40 @@
   yum:
     name: "{{ perl_mod_list }}"
 
+- name: Create directory for Git repository
+  file:
+    path: "{{ repo_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
 - name: Clone Repository
   git:
     repo: "{{ item.url }}"
-    dest: /root/{{ item.name }}
+    dest: /root/repository/{{ item.name }}
     remote: upstream
     accept_hostkey: yes
   with_items: "{{ git_repos }}"
+
+- name: Pip Upgrade
+  shell: pip install --upgrade pip
+  register: result
+  changed_when: '"Requirement already" not in result.stdout'
+
+- name: Pip3.6 Upgrade
+  shell: pip3.6 install --upgrade pip
+  register: result
+  changed_when: '"Requirement already" not in result.stdout'
+
+- name: Pip Install setuptools
+  shell: pip3.6 install --upgrade setuptools
+  register: result
+  changed_when: '"Requirement already" not in result.stdout'
+
+- name: Pip Install Packages
+  pip:
+    name: "{{ item.name }}"
+    version: "{{ item.version | default(omit) }}"
+  with_items:
+    - "{{ pip_package_list }}"
