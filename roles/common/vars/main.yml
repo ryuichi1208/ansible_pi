@@ -1,8 +1,8 @@
-repo_dir:
-  - "/root/repository"
+users:
+  - { name: 'user01', uid: 1001, group: 'users', password: "{{ passw0rd }}", update_password: 'on_create', comment: 'user01' }
+  - { name: 'user02', uid: 1002, group: 'users', password: "{{ passw0rd }}", update_password: 'on_create', comment: 'user02' }
 
-repo_list:
-  - "https://centos7.iuscommunity.org/ius-release.rpm"
+passw0rd: "Qwer1234"
 
 packages:
   - git
@@ -70,3 +70,9 @@ pip_package_list:
   - { name: "netmiko", version: "2.2.2" }
   - { name: "ncclient", version: "0.6.0" }
   - { name: "requests" }
+
+repo_dir:
+  - "/root/repository"
+
+repo_list:
+  - "https://centos7.iuscommunity.org/ius-release.rpm"

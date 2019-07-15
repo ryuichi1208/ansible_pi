@@ -1,5 +1,18 @@
 ---
 
+- debug: var=ansible_all_ipv4_addresses
+- debug: var=ansible_default_ipv4.address
+
+- name: Create Users
+  user:
+    name: "{{ item.name }}"
+    password: "{{ item.password }}"
+    groups:  "{{ item.group }}"
+    shell: /bin/bash
+  with_items:
+    - "{{ users }}"
+  when: users
+
 - name: Disable SELinux
   selinux:
     state: disabled

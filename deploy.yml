@@ -1,5 +1,7 @@
 - hosts: deploy
   user: root
+  # vars_files:
+    # - common_vers
   roles:
     - common
     - docker
