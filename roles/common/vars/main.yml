@@ -34,6 +34,7 @@ packages:
   - jq
   - nodejs
   - npm
+  - go
 
 perl_mod_list:
   - perl-App-cpanminus
@@ -76,3 +77,8 @@ repo_dir:
 
 repo_list:
   - "https://centos7.iuscommunity.org/ius-release.rpm"
+
+kernel_param:
+  - { name: net.core.somaxconn, value: 8192 }
+  - { name: fs.file-max, value: 5242880 }
+  - { name: net.ipv4.ip_forward, value: 1 }

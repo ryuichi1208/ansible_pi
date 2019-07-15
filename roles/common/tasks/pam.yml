@@ -1,0 +1,15 @@
+- name: Pam Limit
+  pam_limits:
+    domain: "{{ item.domain }}"
+    limit_type: "{{ item.limit_type }}"
+    limit_item: nofile
+    value: 655360
+  with_items:
+    - domain: root
+      limit_type: soft
+    - domain: root
+      limit_type: hard
+    - domain: "*"
+      limit_type: soft
+    - domain: "*"
+      limit_type: hard

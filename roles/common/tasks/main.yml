@@ -23,6 +23,15 @@
     state: stopped
     enabled: false
 
+- name: Kernel Tuning
+  sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    state: present
+    ignoreerrors: yes
+  with_items:
+    - "{{ kernel_param }}"
+
 - name: Yum Update
   yum: name=* state=latest
 
