@@ -1,0 +1,23 @@
+- name: Change TimeZone to Asia/Tokyo
+  file:
+    path: /etc/localtime
+    state: link
+    src: /usr/share/zoneinfo/Asia/Tokyo
+    force: yes
+
+- name: Turn on chronyd service
+  service:
+    name: chronyd
+    state: started
+    enabled: yes
+
+- name: Keep defarult chrony.conf
+  shell: cp -a /etc/chrony.conf /etc/chrony.conf_org
+  args:
+    creates: /etc/chrony.conf_org
+
+- name: Put standard chrony config file
+  copy:
+    src: chrony.conf
+    dest: /etc/chrony.conf
+  notify: Restart chrony daemon

@@ -1,8 +1,9 @@
 - hosts: deploy
   user: root
-  gather_facts: yes
+  gather_facts: no
   # vars_files:
     # - common_vers
   roles:
+    - timezone
     - common
     - docker
