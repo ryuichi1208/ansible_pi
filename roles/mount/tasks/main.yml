@@ -1,0 +1,23 @@
+- name: yum install xfsprogs
+  yum:
+    name: xfsprogs
+  when: file_system == "xfs"
+
+- name: mkfs
+  filesystem:
+    fstype: "{{ file_system }}"
+    dev: "{{ device }}"
+
+- name: Make MountPoint
+  file:
+    path: "{{ mount_point }}"
+    state: directory
+
+- name: mount
+  mount:
+    name: "{{ mount_point }}"
+    src: "{{ device }}"
+    fstype: "{{ file_system }}"
+    opts: defaults
+    state: mounted
+

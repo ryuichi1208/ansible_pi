@@ -5,6 +5,7 @@ users:
 passw0rd: "Qwer1234"
 
 packages:
+  - bash-completion
   - git
   - vim
   - curl

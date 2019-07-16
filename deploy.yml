@@ -1,9 +1,10 @@
 - hosts: deploy
   user: root
-  gather_facts: no
+  gather_facts: yes
   # vars_files:
     # - common_vers
   roles:
     - timezone
     - common
     - docker
+    - nfs_mount

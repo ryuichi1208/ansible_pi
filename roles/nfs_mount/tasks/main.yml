@@ -1,0 +1,25 @@
+---
+
+- name: Install NFS Client
+  yum: name={{ item }} state=latest
+  with_items:
+    - nfs-utils
+
+- name: Service Start rpcbind
+  service: name=rpcbind state=started enabled=yes
+
+- name: Service Start rpcidmapd
+  service: name=rpcidmapd state=started enabled=yes
+
+- name: Service Start nfslock
+  service: name=nfslock state=started enabled=yes
+
+#- name: Service Start netfs
+  # service: name=netfs state=started enabled=yes
+
+- name: Make MountPoint
+  file: path={{ file_mountpoint }} state=directory owner=root group=root mode=0755
+
+#- name: Exec Mount
+  # mount: name={{ file_mountpoint }} src={{ file_server }}:{{ file_mountpoint }} fstype=nfs state=mounted
+

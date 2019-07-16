@@ -1,0 +1,5 @@
+- hosts: diskadd
+  user: root
+  gather_facts: yes
+  roles:
+    - mount

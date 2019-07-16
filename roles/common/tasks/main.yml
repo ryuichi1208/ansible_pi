@@ -94,3 +94,27 @@
     version: "{{ item.version | default(omit) }}"
   with_items:
     - "{{ pip_package_list }}"
+
+- name: Disable IPv6
+  shell: echo -e "net.ipv6.conf.all.disable_ipv6 = 1\nnet.ipv6.conf.default.disable_ipv6 = 1" > /etc/sysctl.d/disable_ipv6.conf
+  args:
+    creates: /etc/sysctl.d/disable_ipv6.conf
+
+- name: Create /etc/hosts backup directory
+  file:
+    path: /home/admin/backup_cnf/etc
+    state: directory
+    owner: root
+    group: root
+
+- name: Keep default /etc/hosts
+  shell: cp -a /etc/hosts /home/admin/backup_cnf/etc/hosts_org
+  args:
+    creates: /home/admin/backup_cnf/etc/hosts_org
+
+- name: CommentOut IPv6 row at /etc/hosts
+  replace:
+    dest: /etc/hosts
+    regexp: "^::1"
+    replace: "#::1"
+
