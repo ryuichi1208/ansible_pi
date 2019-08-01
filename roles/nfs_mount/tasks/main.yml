@@ -20,6 +20,10 @@
 - name: Make MountPoint
   file: path={{ file_mountpoint }} state=directory owner=root group=root mode=0755
 
-#- name: Exec Mount
-  # mount: name={{ file_mountpoint }} src={{ file_server }}:{{ file_mountpoint }} fstype=nfs state=mounted
+- name: Exec Mount
+  mount:
+    name: "{{ file_mountpoint }}"
+    src: "{{ file_server }}"
+    fstype: nfs
+    state: mounted
 

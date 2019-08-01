@@ -117,4 +117,3 @@
     dest: /etc/hosts
     regexp: "^::1"
     replace: "#::1"
-

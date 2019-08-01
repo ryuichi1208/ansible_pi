@@ -1,0 +1,5 @@
+- hosts: kube_master
+  user: root
+  gather_facts: yes
+  roles:
+    - kube_master

@@ -1,0 +1,69 @@
+- name: Disable IPv6
+  replace:
+    dest: /etc/hosts
+    regexp: '^::1'
+    replace: '#::1'
+
+- name: Disable SELinux
+  selinux:
+    state: disabled
+
+- name: Disable firewalld
+  systemd:
+    name: firewalld
+    state: stopped
+    enabled: false
+
+- name: Disable swap
+  command: swapoff -a
+  when: ansible_swaptotal_mb > 0
+
+- name: Yum Update
+  yum: name=* state=latest
+
+- name: Install Packages
+  yum:
+    name: "{{ packages }}"
+  vars:
+    packages:
+      - git
+      - wget
+      - vim
+      - yum-utils
+      - device-mapper-persistent-data
+      - lvm2
+
+- name: add docker repo
+  shell: "yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo"
+  args:
+    chdir: "/etc/yum.repos.d"
+    creates: docker-ce.repo
+
+- name: install docker-ce
+  shell: yum install -y --setopt=obsoletes=0 docker-ce-17.03.2.ce
+
+- name: Ensure docker deamon is running
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Copy Kube Repo
+  copy:
+    src: kubernetes.repo
+    dest: /etc/yum.repos.d/kubernetes.repo
+
+- name: Install Kubernetes
+  yum:
+    name: "{{ kube }}"
+  vars:
+    kube:
+      - kubelet
+      - kubeadm
+      - kubectl
+
+- name: Ensure Kubelet daemon is running
+  service:
+    name: kubelet
+    state: started
+    enabled: yes
