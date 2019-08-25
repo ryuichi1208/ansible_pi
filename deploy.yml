@@ -6,5 +6,5 @@
   roles:
     - timezone
     - common
-    - docker
-    - mount
+    #- docker
+    #- mount
